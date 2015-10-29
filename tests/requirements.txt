@@ -1,1 +1,2 @@
 testfixtures
+nose
