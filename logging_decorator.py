@@ -1,11 +1,13 @@
-from contextlib import wraps
+import logging
+import contextlib
 
-def log_when_called(logger):
+
+def log_when_called(logger, level=logging.DEBUG):
     '''
     Wrap a function so that it logs when called.
     '''
     def decorator(func):
-        @wraps(func)
+        @contextlib.wraps(func)
         def wrapper(*args, **kwargs):
             output_args = ', '.join(map(repr, args))
             if kwargs:
@@ -13,7 +15,7 @@ def log_when_called(logger):
                     '%s=%r' % (key, value) for key, value in kwargs.items()
                 )
 
-            logger.debug('Calling %s(%s)', func.__name__, output_args)
+            logger.log(level, 'Calling %s(%s)', func.__name__, output_args)
             return func(*args, **kwargs)
         return wrapper
     return decorator
