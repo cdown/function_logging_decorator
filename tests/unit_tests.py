@@ -1,4 +1,4 @@
-from logging_decorator import log_when_called
+from logdecorator import log_when_called
 import testfixtures
 import logging
 
